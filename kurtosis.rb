@@ -5,28 +5,28 @@
 class Kurtosis < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "1.21.0"
+  version "1.21.1"
   bottle :unneeded
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.0/kurtosis-cli_1.21.0_darwin_amd64.tar.gz"
-      sha256 "a8924548efba34e27849ec4ef2198a04e9f705b48e87f688eaa88fb46203db31"
+      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.1/kurtosis-cli_1.21.1_darwin_amd64.tar.gz"
+      sha256 "56d0c72ae1043a767e48a71a0d46933c4c78077922ab59175841778c910d4a4a"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.0/kurtosis-cli_1.21.0_darwin_arm64.tar.gz"
-      sha256 "4d4248ef9d1e3f77a8339e434095098d804b3a009285d3743f85572573063a35"
+      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.1/kurtosis-cli_1.21.1_darwin_arm64.tar.gz"
+      sha256 "335f388abfdbfb4234967443140d5d99232eec4f36da44a3839e675126a519bb"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.0/kurtosis-cli_1.21.0_linux_amd64.tar.gz"
-      sha256 "f0c61ed96067b74df8cf6351686bf0e2184f088985e7c089b9eb838d83fa7810"
+      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.1/kurtosis-cli_1.21.1_linux_amd64.tar.gz"
+      sha256 "2ce732a72f8df3e3fa076fcd6e6ec7fe892dd82e9a538f1b4eec532ec2bd453b"
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.0/kurtosis-cli_1.21.0_linux_arm64.tar.gz"
-      sha256 "b2a29b5c0d21bca93a9bd9ef99178bcd355ffcacf608effc2eab43b8cd371a0d"
+      url "https://github.com/kurtosis-tech/kurtosis-core-release-artifacts/releases/download/1.21.1/kurtosis-cli_1.21.1_linux_arm64.tar.gz"
+      sha256 "90d07ad3164c6e8002b0060b8f840314841216966519597926c8b693cbe9dcf6"
     end
   end
 

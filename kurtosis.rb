@@ -8,7 +8,7 @@ class Kurtosis < Formula
   version "1.22.14"
   bottle :unneeded
 
-  deprecate! date: "2021-10-08", because: "This formula has been replaced with the 'kurtosis-cli' package; use 'brew install kurtosis-tech/tap/kurtosis-cli' instead"
+  deprecate! date: "2021-10-08", because: "has been replaced with the 'kurtosis-cli' package; use 'brew install kurtosis-tech/tap/kurtosis-cli' instead"
 
   on_macos do
     if Hardware::CPU.intel?

@@ -5,28 +5,28 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.4.0"
+  version "0.4.1"
   bottle :unneeded
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.0/kurtosis-cli_0.4.0_darwin_amd64.tar.gz"
-      sha256 "5ddb42635cd35b27763d2ba4c853daea540c40f72c8d1b99f1c8d6ada9237cf9"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.1/kurtosis-cli_0.4.1_darwin_amd64.tar.gz"
+      sha256 "3b62ebf2e3653d5e80233e2845700fd3eb6b62c53c9c7f82892c2437cf60eff2"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.0/kurtosis-cli_0.4.0_darwin_arm64.tar.gz"
-      sha256 "b5ffef8e0995f1a97a519350a1aa70fd0d5ee26bb0d5f9d7324eaafad8343250"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.1/kurtosis-cli_0.4.1_darwin_arm64.tar.gz"
+      sha256 "9b5647cc3ce9d2de23fcac94058633fce55d271fcaef05e5172a761f494c6837"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.0/kurtosis-cli_0.4.0_linux_amd64.tar.gz"
-      sha256 "a8aa6497248f7b4e00261d6a3cd29aaae78185ef8811ba68ad5caa2938ec5857"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.1/kurtosis-cli_0.4.1_linux_amd64.tar.gz"
+      sha256 "de2c55ac6daf5c7b0bece6c30a049bfb3529c17aef4aa77d8df25c91048598df"
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.0/kurtosis-cli_0.4.0_linux_arm64.tar.gz"
-      sha256 "dfd8baf4b6f9f83a4f8aaf64a7a4afc6f84902fea6beea5bd13dc34312465d3d"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.4.1/kurtosis-cli_0.4.1_linux_arm64.tar.gz"
+      sha256 "fe6124f8a748702be400a297939b99294f100979db6784e40df30be68f3b7c6e"
     end
   end
 

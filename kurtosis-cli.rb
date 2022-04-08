@@ -5,20 +5,20 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.11.9"
+  version "0.12.0"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.11.9/kurtosis-cli_0.11.9_darwin_arm64.tar.gz"
-      sha256 "3034f1d7aa8778e5c92ac047b8700b04c154703b16df9a1cc69558a4e55809af"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.12.0/kurtosis-cli_0.12.0_darwin_arm64.tar.gz"
+      sha256 "8835fed4577c6e53932073c859baa3abec402176f3cf5a247c3401b71542bad9"
 
       def install
         bin.install "kurtosis"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.11.9/kurtosis-cli_0.11.9_darwin_amd64.tar.gz"
-      sha256 "bdd7fa7f45ccbbac42ef342d5e5588dd653b049e617949e9a0fbd3ba304e3874"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.12.0/kurtosis-cli_0.12.0_darwin_amd64.tar.gz"
+      sha256 "f27cfd863c6b3189df91960cc05ab1299f949a4e008647e54360e5d2026f1d1f"
 
       def install
         bin.install "kurtosis"
@@ -28,16 +28,16 @@ class KurtosisCli < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.11.9/kurtosis-cli_0.11.9_linux_arm64.tar.gz"
-      sha256 "1caab1bba81b3d7ba3caa4824f2b45e9ffe3e0c672d413d8917c103c51708a0a"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.12.0/kurtosis-cli_0.12.0_linux_arm64.tar.gz"
+      sha256 "7c7a9dfa13f9c800ea18a1cc9b5698092de1615782aef8d0aabee372e0b9a99f"
 
       def install
         bin.install "kurtosis"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.11.9/kurtosis-cli_0.11.9_linux_amd64.tar.gz"
-      sha256 "9542ed4096fe6cae568fc695cb2b46715273886205cfe51b4371a60996f32e34"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.12.0/kurtosis-cli_0.12.0_linux_amd64.tar.gz"
+      sha256 "855272da9aa2f7a161bd60b8acd2f9d4c3690019d87ef0d1ba5b9c7250add0a8"
 
       def install
         bin.install "kurtosis"

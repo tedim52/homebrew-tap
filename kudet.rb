@@ -5,20 +5,20 @@
 class Kudet < Formula
   desc "Kudet - (Ku)rtosis (De)veloper (T)ools"
   homepage "https://www.kurtosistech.com"
-  version "0.1.7"
+  version "0.1.8"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.7/kudet_0.1.7_darwin_amd64.tar.gz"
-      sha256 "9896a363546f750c57d6d464651621eb5a217926ca076ff12231c11060fceb7c"
+    if Hardware::CPU.arm?
+      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.8/kudet_0.1.8_darwin_arm64.tar.gz"
+      sha256 "01dd45f0034ae87cd31943583716fc4cbe783e8198159dbafc0678510e597fcf"
 
       def install
         bin.install "kudet"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.7/kudet_0.1.7_darwin_arm64.tar.gz"
-      sha256 "91e3ee24a43626b87fc0fa90fb138203c4180e44401137f3169666b370e26c97"
+    if Hardware::CPU.intel?
+      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.8/kudet_0.1.8_darwin_amd64.tar.gz"
+      sha256 "4a30b51dd177c31b7ff7edf04b0b95ade8a0734aa2c64f8a3087b3b3fe3ce091"
 
       def install
         bin.install "kudet"
@@ -28,16 +28,16 @@ class Kudet < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.7/kudet_0.1.7_linux_arm64.tar.gz"
-      sha256 "f4319e52d63b58739f9392dea446826ce41e39c034223e75525e42b9888b0921"
+      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.8/kudet_0.1.8_linux_arm64.tar.gz"
+      sha256 "ec7cac1a0e257eb161e6f128b1e0d08d1137312d0316d46dc7e7c0bf20245119"
 
       def install
         bin.install "kudet"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.7/kudet_0.1.7_linux_amd64.tar.gz"
-      sha256 "169fa17da5a8756671460263f17f02166703db2f51f5f0332d18271ae1951e95"
+      url "https://github.com/kurtosis-tech/kudet-release-artifacts/releases/download/v0.1.8/kudet_0.1.8_linux_amd64.tar.gz"
+      sha256 "990334c9a51c16ce276c938074c5d48d3e85644106801a731145a162f650b14d"
 
       def install
         bin.install "kudet"

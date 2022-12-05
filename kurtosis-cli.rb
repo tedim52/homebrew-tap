@@ -5,43 +5,61 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.57.6"
+  version "0.57.7"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.6/kurtosis-cli_0.57.6_darwin_arm64.tar.gz"
-      sha256 "c1870e31cf72a9c3bafded5e3b7da98b44b6d2e2df3543d5ef049f1864358a11"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.7/kurtosis-cli_0.57.7_darwin_arm64.tar.gz"
+      sha256 "c9cbf7ca597f5ad4b73ef4df5b01acf6ac1cbd0d366d843eb089838abd12120f"
 
       def install
         bin.install "kurtosis"
+        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/kurtosis.fish"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.6/kurtosis-cli_0.57.6_darwin_amd64.tar.gz"
-      sha256 "e08949d9ca02f40f8b46ab4bc93a05153e0c983de2c7995269dfaebeac3b5db4"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.7/kurtosis-cli_0.57.7_darwin_amd64.tar.gz"
+      sha256 "37c58b7229a7672c2fbf19b0079ea6bb194e3b176159dc5b6657c2ddd6448cd9"
 
       def install
         bin.install "kurtosis"
+        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/kurtosis.fish"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.6/kurtosis-cli_0.57.6_linux_arm64.tar.gz"
-      sha256 "ba34bd7c394137ea041c94394b0d1f0a036c8e88b5237f3a0a45f71f68f51cc8"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.7/kurtosis-cli_0.57.7_linux_arm64.tar.gz"
+      sha256 "6899d46ab2d7375d3b97ee45a46f48fe256c051201fa87a3a3d77dd8e15595db"
 
       def install
         bin.install "kurtosis"
+        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/kurtosis.fish"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.6/kurtosis-cli_0.57.6_linux_amd64.tar.gz"
-      sha256 "42935d1406e4b28b483962e04c01f7e73d562ae05616ca39816b1640c488a005"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.7/kurtosis-cli_0.57.7_linux_amd64.tar.gz"
+      sha256 "98fb94c88ac2d38d7ea94bcbddc4e48bec2313f2335102d3f4e0ce6e5051c498"
 
       def install
         bin.install "kurtosis"
+        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/kurtosis.fish"
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      The kurtosis CLI is installed with tab completion support. For more details visit https://docs.kurtosis.com/.
+    EOS
   end
 end

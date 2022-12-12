@@ -5,54 +5,54 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.57.8"
+  version "0.58.0"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.8/kurtosis-cli_0.57.8_darwin_arm64.tar.gz"
-      sha256 "2f70a3439eff3223bb712cd3a785b0f24256a6eabe263cbde3b507da9228eec9"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.58.0/kurtosis-cli_0.58.0_darwin_arm64.tar.gz"
+      sha256 "451019c3dcd8dc4256b268e60600aa319a4db4a989c5707bee586c5d4d02a6e3"
 
       def install
         bin.install "kurtosis"
-        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
-        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
-        fish_completion.install "completions/kurtosis.fish"
+        bash_completion.install "completions/scripts/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/scripts/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/scripts/kurtosis.fish"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.8/kurtosis-cli_0.57.8_darwin_amd64.tar.gz"
-      sha256 "c635024e0c7953f372eedf20cf8c631d9a21bb5f300f4738e835372ee363b94a"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.58.0/kurtosis-cli_0.58.0_darwin_amd64.tar.gz"
+      sha256 "54fad11aa99f8f5afdbb7b6785d643c81f67a9ac0369c5efadf9a8dad3759170"
 
       def install
         bin.install "kurtosis"
-        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
-        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
-        fish_completion.install "completions/kurtosis.fish"
+        bash_completion.install "completions/scripts/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/scripts/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/scripts/kurtosis.fish"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.8/kurtosis-cli_0.57.8_linux_arm64.tar.gz"
-      sha256 "bab176af5a69b98acd70435c8a363e20960f2e990e8c3bfd8e36b04531ffb510"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.58.0/kurtosis-cli_0.58.0_linux_arm64.tar.gz"
+      sha256 "75c2dd7e15b288c1c25ad13dc245c4fa5eda524201f9ce8809eafac315687cef"
 
       def install
         bin.install "kurtosis"
-        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
-        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
-        fish_completion.install "completions/kurtosis.fish"
+        bash_completion.install "completions/scripts/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/scripts/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/scripts/kurtosis.fish"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.57.8/kurtosis-cli_0.57.8_linux_amd64.tar.gz"
-      sha256 "c5ac22123b20c3b5d749bd84cbc46157bc480fff4f9ad0eb422cf54bef418e9a"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/v0.58.0/kurtosis-cli_0.58.0_linux_amd64.tar.gz"
+      sha256 "9828734cadf5d6f5b5087c1fd45ee92c59cbe23835373e2d3568f65a3c348efd"
 
       def install
         bin.install "kurtosis"
-        bash_completion.install "completions/kurtosis.bash" => "kurtosis"
-        zsh_completion.install "completions/kurtosis.zsh" => "_kurtosis"
-        fish_completion.install "completions/kurtosis.fish"
+        bash_completion.install "completions/scripts/kurtosis.bash" => "kurtosis"
+        zsh_completion.install "completions/scripts/kurtosis.zsh" => "_kurtosis"
+        fish_completion.install "completions/scripts/kurtosis.fish"
       end
     end
   end

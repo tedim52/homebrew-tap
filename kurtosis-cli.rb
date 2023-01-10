@@ -5,12 +5,12 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.63.2"
+  version "0.64.0"
 
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.63.2/kurtosis-cli_0.63.2_darwin_arm64.tar.gz"
-      sha256 "b7b98d15526996c32b8e76e60d313a895753250743c1ace7d8e198533d91a8e2"
+    if Hardware::CPU.intel?
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.64.0/kurtosis-cli_0.64.0_darwin_amd64.tar.gz"
+      sha256 "9e535aab927824a1395a6f7699a62eb819f7994185625a25cfda7f33bf27c1dc"
 
       def install
         bin.install "kurtosis"
@@ -19,9 +19,9 @@ class KurtosisCli < Formula
         fish_completion.install "scripts/completions/scripts/kurtosis.fish"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.63.2/kurtosis-cli_0.63.2_darwin_amd64.tar.gz"
-      sha256 "2dfe09700293cc460e11624da865beb4e8ec0eb386b52b4a4d1b99cde568afe9"
+    if Hardware::CPU.arm?
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.64.0/kurtosis-cli_0.64.0_darwin_arm64.tar.gz"
+      sha256 "2e020d7a9fc838e0593229fec7a9dcc2d35eab0718c45eaf4a3619f32f6c63fe"
 
       def install
         bin.install "kurtosis"
@@ -34,8 +34,8 @@ class KurtosisCli < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.63.2/kurtosis-cli_0.63.2_linux_arm64.tar.gz"
-      sha256 "54a98bb60953fe68f6534c00eb03eb1bb46fe3bbe137864c4f8bbd7c127e60e4"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.64.0/kurtosis-cli_0.64.0_linux_arm64.tar.gz"
+      sha256 "3c2d420fb262acdbb77292cf0a18ae7adc5f29d37e9d2c229815c756c498e429"
 
       def install
         bin.install "kurtosis"
@@ -45,8 +45,8 @@ class KurtosisCli < Formula
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.63.2/kurtosis-cli_0.63.2_linux_amd64.tar.gz"
-      sha256 "65d95d00dd3466e3117d1933eacc1e172e5a237349e1d1ffbc3d7d746ae5c808"
+      url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.64.0/kurtosis-cli_0.64.0_linux_amd64.tar.gz"
+      sha256 "f0f1298950cff73a848333a4939fddc0b20b8f05d99cde9778934b80eaeaefc3"
 
       def install
         bin.install "kurtosis"

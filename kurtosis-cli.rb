@@ -7,6 +7,11 @@ class KurtosisCli < Formula
   homepage "https://www.kurtosistech.com"
   version "0.65.0"
 
+  bottle do
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9cb130850991d0572d9fe691be5815eb8f2e443f894ad8b5c529eda85a6b8104"
+  end
+
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.65.0/kurtosis-cli_0.65.0_darwin_arm64.tar.gz"

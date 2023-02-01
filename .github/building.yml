@@ -5,10 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    container:
-      image: ghcr.io/homebrew/ubuntu22.04:master
-      options: --user=linuxbrew
+    runs-on: ubuntu-latest
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master

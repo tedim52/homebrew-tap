@@ -6,12 +6,13 @@ on:
 
 jobs:
   build:
-    matrix:
-      include: 
-        - os: ubuntu-latest
-        - os: macos-10.15
-        - os: macos-11
-        - os: macos-12
+    strategy:
+      matrix:
+        include: 
+          - os: ubuntu-latest
+          - os: macos-10.15
+          - os: macos-11
+          - os: macos-12
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Homebrew

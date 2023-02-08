@@ -25,6 +25,14 @@ jobs:
           cd ~/bottles
           brew test-bot
   
+      - name: Upload bottles
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: bottles
+          path: ~/bottles
+          if-no-files-found: error
+          
   # release_and_upload:
   #   needs: build
 

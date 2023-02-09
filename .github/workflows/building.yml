@@ -33,18 +33,22 @@ jobs:
           path: ~/bottles
           if-no-files-found: error
           
-  # release_and_upload:
-  #   needs: build
+  release_and_upload:
+    needs: build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Create a new release
-  #       uses: actions/create-release@v1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v
+
+      - name: Create a new release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEKN }}
+        with:
+          tag_name: ${{ }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prereleas: false
         
-
-  #     - name: Upload bottles to release
-  #       uses: actions/upload-release-asset@v1
-  #       with:
-  #         upload_url:
-  #         asset_path:
-  #         asset_name:
-  #         asset_content_type:

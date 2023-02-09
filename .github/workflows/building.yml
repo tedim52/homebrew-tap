@@ -34,12 +34,12 @@ jobs:
           if-no-files-found: error
           
   release_and_upload:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v
+        uses: actions/checkout@v2
 
       - name: Create a new release
         id: create_release

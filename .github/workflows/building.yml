@@ -4,11 +4,11 @@ on:
   pull_request:
   # push:
   #   branches: [master]
-  
 
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         include: 
           - os: ubuntu-latest
@@ -26,18 +26,30 @@ jobs:
           cd ~/bottles
           brew test-bot
   
-  # release_and_upload:
-  #   needs: build
+      - name: Upload bottles
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: bottles
+          path: ~/bottles
+          if-no-files-found: error
+          
+  release_and_upload:
+    # needs: build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Create a new release
-  #       uses: actions/create-release@v1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create a new release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
         
-
-  #     - name: Upload bottles to release
-  #       uses: actions/upload-release-asset@v1
-  #       with:
-  #         upload_url:
-  #         asset_path:
-  #         asset_name:
-  #         asset_content_type:

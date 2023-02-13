@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  KURTOSIS_CLI_FORMULA: kurtosis-tech/tap/kurtosis-cli
+  KURTOSIS_CLI_FORMULA: tedim52/tap/kurtosis-cli
 
 jobs:
   release:
@@ -21,7 +21,7 @@ jobs:
         with:
           search_string: ${{ github.event.head_commit.message }}
           regex_pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
-          regex_flags: "i"
+          regex_flags: "gim"
 
       - name: Check if version was parsed from commit message and fail loudly if not
         if: ${{ steps.get-version.outputs.first_match == '' }}

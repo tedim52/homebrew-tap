@@ -1,7 +1,7 @@
 name: Upload Homebrew Bottles
 
 on:
-  pull_request:
+  push:
 
 jobs:
   release:
@@ -20,10 +20,18 @@ jobs:
           # semantic version regex
           regex: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
 
+      - name: Check if version was parsed and fail loudly if not
+        if: ${{ steps.get-version.outputs.match != '' }}
+        # this action allows using Github API directly, so we can use the core libraries fail function
+        # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
+        uses: actions/github-script@v3
+        with: 
+          script: |
+            core.setFailed('Unable to parse a semantic version from latest tap commit message.')
+
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
-        if: ${{ steps.get-version.outputs.match != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

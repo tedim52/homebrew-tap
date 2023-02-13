@@ -25,7 +25,7 @@ jobs:
 
       - name: Check if version was parsed from commit message and fail loudly if not
         if: ${{ steps.get-version.outputs.first_match == '' }}
-        # this action allows using Github API directly, so we can use the core libraries fail function
+        # This action allows using Github API directly, so we can use the core libraries fail function to fail loudly
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         uses: actions/github-script@v3
         with: 

@@ -8,7 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,7 +25,7 @@ jobs:
           draft: false
           prerelease: false
 
-  build:
+  build_and_upload:
     needs: release
     strategy:
       fail-fast: false
@@ -39,7 +40,7 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Build bottles
+      - name: Build bottle
         run: |
           mkdir ~/bottles
           cd ~/bottles
@@ -47,13 +48,12 @@ jobs:
           export BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)
           echo $BOTTLE_FILEPATH
 
-      - name: Upload bottles as release assets
-        id: upload-release-asset
+      - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: $BOTTLE_FILEPATH
           asset_name: homebrew-bottles-${{ github.ref_name }}
           asset_content_type: application/gzip

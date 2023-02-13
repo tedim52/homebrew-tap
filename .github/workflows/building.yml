@@ -42,8 +42,6 @@ jobs:
 
       - name: Build bottle
         run: |
-          mkdir ~/bottles
-          cd ~/bottles
           brew test-bot
           echo "BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
 

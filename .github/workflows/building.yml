@@ -25,11 +25,11 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot
-          # delete metadata files that aren't the bottle
           find . -name "*.json" -type f -delete  
           find . -name "*.txt" -type f -delete 
           cd ..
           zip -r homebrew-bottles-${{ github.ref_name }}-${{ matrix.os }}.zip bottles
+          ls
 
       # - name: Upload bottles
       #   if: always()

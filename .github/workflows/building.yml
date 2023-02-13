@@ -45,7 +45,7 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot
-          echo "BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)"
+          export BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)
         
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1

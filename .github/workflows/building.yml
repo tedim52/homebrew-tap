@@ -3,9 +3,6 @@ name: Upload Homebrew Bottles
 on:
   pull_request:
 
-env:
-  SEMVER_REGEX: "^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$"
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -16,22 +13,22 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Attempt to get version from latest commit message
-        shell: bash
-        run: |
-          echo VERSION=$(echo "${{ github.event.head_commit.message }}" | sed 's/${{ env.SEMVER_REGEX }}/\1/') >> $GITHUB_ENV
-          if [ "${{ env.VERSION }}" == '' ]; then
-              echo "Unable to parse version for release from latest commit message";
-          fi
-          exit 1
+        uses: actions-ecosystem/action-regex-match@v2
+        id: get-version
+        with:
+          text: ${{ github.event.head_commit.message }}
+          # semantic version regex
+          regex: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
 
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
+        if: ${{ steps.match-version.outputs.match != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.Version }}
-          release_name: Release ${{ env.Version }}
+          tag_name: ${{ steps.get-version.outputs.match }}
+          release_name: Release ${{ steps.get-version.outputs.match }}
           draft: false
           prerelease: false
 

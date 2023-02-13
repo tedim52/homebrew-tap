@@ -62,3 +62,4 @@ jobs:
           upload_url: $${{ steps.create_release.outputs.upload_url }}
           asset_path: ~/bottles
           asset_name: homebrew_bottles
+          

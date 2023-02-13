@@ -28,7 +28,7 @@ jobs:
         uses: actions-ecosystem/action-regex-match@v2
         id: get-version
         with:
-          regex_pattern: ${{ env.SEMVER_REGEX }}
+          regex: ${{ env.SEMVER_REGEX }}
           text: ${{ github.event.head_commit.message }}
 
       # We assume that the commit messages that are pushed to tap repo by goreleaser contain the release version

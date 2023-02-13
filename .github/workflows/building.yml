@@ -16,14 +16,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
+      # - name: Attempt to get version from latest commit message
+      #   uses: AsasInnab/regex-action@v1
+      #   id: get-version
+      #   with:
+      #     regex_pattern: ${{ env.SEMVER_REGEX }}
+      #     regex_flags: 'gim'
+      #     search_string: ${{ github.event.head_commit.message }}
+
       - name: Attempt to get version from latest commit message
-        uses: AsasInnab/regex-action@v1
+        uses: actions-ecosystem/action-regex-match@v2
         id: get-version
         with:
           regex_pattern: ${{ env.SEMVER_REGEX }}
-          regex_flags: 'gim'
-          search_string: ${{ github.event.head_commit.message }}
-
+          text: ${{ github.event.head_commit.message }}
+          
+      # We assume that the commit messages that are pushed to tap repo by goreleaser contain the release version
+      # Thus, if this ever changes we need to fail loudly so we can adjust
       - name: Check if version was parsed from commit message and fail loudly if not
         if: ${{ steps.get-version.outputs.first_match == '' }}
         # This action allows using Github API directly, so we can use the core libraries fail function to fail loudly
@@ -63,8 +72,7 @@ jobs:
         run: |
           brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
-          echo "BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
-          echo "BOTTLE_FILENAME=$(echo "$BOTTLE_FILEPATH" | sed 's#.*/##')" >> $GITHUB_ENV
+          echo "BOTTLE_FILENAME=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
 
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
@@ -72,6 +80,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ${{ env.BOTTLE_FILEPATH }}
-          asset_name: ${{ env.BOTTLE_FILEPATH }} # need to change to env.BOTTLE_FILENAME when I figure out how to get that working
+          asset_path: ./${{ env.BOTTLE_FILENAME }}
+          asset_name: ${{ env.BOTTLE_FILENAME }} 
           asset_content_type: application/gzip

@@ -27,10 +27,7 @@ jobs:
           brew test-bot
           find . -name "*.json" -type f -delete  
           find . -name "*.txt" -type f -delete 
-          ls
-          cd ~/
-          zip -r homebrew-bottles-${{ github.ref_name }}-${{ matrix.os }}.zip bottles
-          ls
+          zip -r homebrew-bottles-${{ github.ref_name }}-${{ matrix.os }}.zip .
 
       # - name: Upload bottles
       #   if: always()

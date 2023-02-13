@@ -30,11 +30,11 @@ jobs:
         with:
           regex_pattern: ${{ env.SEMVER_REGEX }}
           text: ${{ github.event.head_commit.message }}
-          
+
       # We assume that the commit messages that are pushed to tap repo by goreleaser contain the release version
       # Thus, if this ever changes we need to fail loudly so we can adjust
       - name: Check if version was parsed from commit message and fail loudly if not
-        if: ${{ steps.get-version.outputs.first_match == '' }}
+        if: ${{ steps.get-version.outputs.match == '' }}
         # This action allows using Github API directly, so we can use the core libraries fail function to fail loudly
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         uses: actions/github-script@v3
@@ -48,8 +48,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get-version.outputs.first_match }}
-          release_name: Release ${{ steps.get-version.outputs.first_match }}
+          tag_name: ${{ steps.get-version.outputs.match }}
+          release_name: Release ${{ steps.get-version.outputs.match }}
           draft: false
           prerelease: false
 

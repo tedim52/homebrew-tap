@@ -19,9 +19,9 @@ jobs:
           # requires a push event for the workflow
           text: ${{ github.event.head_commit.message }}
           # semantic version regex
-          regex: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+          regex: "[0-9A-Za-z_./-]+"
 
-      - name: Check if version was parsed and fail loudly if not
+      - name: Check if version was parsed from commit and fail loudly if not
         if: ${{ steps.get-version.outputs.match == '' }}
         # this action allows using Github API directly, so we can use the core libraries fail function
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/

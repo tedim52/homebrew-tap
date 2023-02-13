@@ -1,9 +1,7 @@
-name: Building
+name: Upload Homebrew Bottles
 
 on:
   pull_request:
-  # push:
-  #   branches: [master]
 
 jobs:
   release:
@@ -32,21 +30,19 @@ jobs:
       matrix:
         include: 
           - os: ubuntu-latest
-          # - os: macos-10.15
-          # - os: macos-11
-          # - os: macos-12
-    runs-on: ${{matrix.os}}
+          - os: macos-10.15
+          - os: macos-11
+          - os: macos-12
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Build bottle
         run: |
-          mkdir ~/bottles
-          cd ~/bottles
           brew test-bot
-          export BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)
-          echo $BOTTLE_FILEPATH
+          echo "BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
+          echo "BOTTLE_FILENAME=$(echo "$BOTTLE_FILEPATH" | sed 's#.*/##')" >> $GITHUB_ENV
 
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
@@ -54,6 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: $BOTTLE_FILEPATH
-          asset_name: homebrew-bottles-${{ github.ref_name }}
+          asset_path: ${{ env.BOTTLE_FILEPATH }}
+          asset_name: ${{ env.BOTTLE_FILENAME }}
           asset_content_type: application/gzip

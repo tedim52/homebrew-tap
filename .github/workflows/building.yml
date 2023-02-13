@@ -3,6 +3,9 @@ name: Build and Upload Homebrew Bottles
 on:
   push:
 
+env:
+  KURTOSIS_CLI_FORMULA: kurtosis-tech/tap/kurtosis-cli
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -55,9 +58,10 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Build bottle
+      - name: Build bottle for specific os/arch
         run: |
-          brew test-bot
+          brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
+          brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           echo "BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
           echo "BOTTLE_FILENAME=$(echo "$BOTTLE_FILEPATH" | sed 's#.*/##')" >> $GITHUB_ENV
 

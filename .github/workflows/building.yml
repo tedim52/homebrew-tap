@@ -1,4 +1,4 @@
-name: Upload Homebrew Bottles
+name: Build and Upload Homebrew Bottles
 
 on:
   push:
@@ -13,22 +13,21 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Attempt to get version from latest commit message
-        uses: actions-ecosystem/action-regex-match@v2
+        uses: AsasInnab/regex-action
         id: get-version
         with:
-          # requires a push event for the workflow
-          text: ${{ github.event.head_commit.message }}
+          search_string: ${{ github.event.head_commit.message }}
           # semantic version regex
-          regex: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
+          regex_pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
 
-      - name: Check if version was parsed from commit and fail loudly if not
-        if: ${{ steps.get-version.outputs.match == '' }}
+      - name: Check if version was parsed from commit message and fail loudly if not
+        if: ${{ steps.get-version.outputs.first_match == '' }}
         # this action allows using Github API directly, so we can use the core libraries fail function
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         uses: actions/github-script@v3
         with: 
           script: |
-            core.setFailed('Unable to parse a semantic version from latest tap commit message.')
+            core.setFailed('Unable to parse semantic version from latest tap commit message.')
 
       - name: Create a new release 
         id: create_release
@@ -36,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get-version.outputs.match }}
-          release_name: Release ${{ steps.get-version.outputs.match }}
+          tag_name: ${{ steps.get-version.outputs.first_match }}
+          release_name: Release ${{ steps.get-version.outputs.first_match }}
           draft: false
           prerelease: false
 

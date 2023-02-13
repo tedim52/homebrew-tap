@@ -29,7 +29,7 @@ jobs:
           find . -name "*.json" -type f -delete  
           find . -name "*.txt" -type f -delete 
           cd ..
-          zip -r homebrew-bottles-{{ github.ref_name }}.zip bottles
+          zip -r homebrew-bottles-${{ github.ref_name }}-${{ matrix.os }}.zip bottles
 
       # - name: Upload bottles
       #   if: always()
@@ -64,7 +64,7 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
-          upload_url: $${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ~/homebrew-bottles-{{ github.ref_name }}.zip
           asset_name: homebrew-bottles-{{ github.ref_name }}.zip
           asset_content_type: application/zip

@@ -25,14 +25,16 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot
-  
-      - name: Upload bottles
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: bottles
-          path: ~/bottles
-          if-no-files-found: error
+          export BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)
+          echo $BOTTLE_FILEPATH
+
+      # - name: Upload bottles
+      #   if: always()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: bottles
+      #     path: homebrew-bottles-{{ github.ref_name }}.zip
+      #     if-no-files-found: error
           
   release_and_upload:
     needs: build
@@ -59,7 +61,8 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
-          upload_url: $${{ steps.create_release.outputs.upload_url }}
-          asset_path: ~/bottles
-          asset_name: homebrew_bottles
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: $BOTTLE_FILEPATH
+          asset_name: homebrew-bottles-${{ github.ref_name }}
+          asset_content_type: application/gzip
           

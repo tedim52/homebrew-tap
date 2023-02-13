@@ -25,9 +25,8 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot
-          find . -name "*.json" -type f -delete  
-          find . -name "*.txt" -type f -delete 
-          zip -r homebrew-bottles-${{ github.ref_name }}-${{ matrix.os }}.zip .
+          export BOTTLE_FILEPATH=$(find . -name "*.tar.gz" -type f)
+          echo $BOTTLE_FILEPATH
 
       # - name: Upload bottles
       #   if: always()
@@ -63,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ~/homebrew-bottles-{{ github.ref_name }}-${{ matrix.os }}.zip
-          asset_name: homebrew-bottles-{{ github.ref_name }}-${{ matrix.os }}.zip
-          asset_content_type: application/zip
+          asset_path: $BOTTLE_FILEPATH
+          asset_name: homebrew-bottles-${{ github.ref_name }}
+          asset_content_type: application/gzip
           

@@ -25,7 +25,12 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot
-  
+          # delete metadata files that aren't the bottle
+          find . -name "*.json" -type f -delete  
+          find . -name "*.txt" -type f -delete 
+          cd ..
+          zip -r homebrew-bottles-{{ github.ref_name }}.zip bottles
+
       - name: Upload bottles
         if: always()
         uses: actions/upload-artifact@v3
@@ -62,4 +67,5 @@ jobs:
           upload_url: $${{ steps.create_release.outputs.upload_url }}
           asset_path: ~/bottles
           asset_name: homebrew_bottles
+          asset_content_type: application/zip
           

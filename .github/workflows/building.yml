@@ -19,7 +19,7 @@ jobs:
           # requires a push event for the workflow
           text: ${{ github.event.head_commit.message }}
           # semantic version regex
-          regex: "[0-9A-Za-z_./-]+"
+          regex: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$''
 
       - name: Check if version was parsed from commit and fail loudly if not
         if: ${{ steps.get-version.outputs.match == '' }}

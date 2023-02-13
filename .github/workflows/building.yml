@@ -23,7 +23,7 @@ jobs:
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
-        if: ${{ steps.match-version.outputs.match != '' }}
+        if: ${{ steps.get-version.outputs.match != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

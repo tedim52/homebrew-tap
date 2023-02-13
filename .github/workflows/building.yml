@@ -19,7 +19,7 @@ jobs:
         uses: AsasInnab/regex-action@v1
         id: get-version
         with:
-          regex_pattern: 'JIR-[0-9]+'
+          regex_pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
           regex_flags: 'gim'
           search_string: ${{ github.event.head_commit.message }}
 

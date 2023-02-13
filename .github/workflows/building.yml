@@ -1,4 +1,4 @@
-name: Building
+name: Upload Homebrew Bottles
 
 on:
   pull_request:

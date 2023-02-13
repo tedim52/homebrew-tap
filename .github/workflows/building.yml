@@ -31,13 +31,13 @@ jobs:
           cd ..
           zip -r homebrew-bottles-{{ github.ref_name }}.zip bottles
 
-      - name: Upload bottles
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: bottles
-          path: ~/bottles
-          if-no-files-found: error
+      # - name: Upload bottles
+      #   if: always()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: bottles
+      #     path: homebrew-bottles-{{ github.ref_name }}.zip
+      #     if-no-files-found: error
           
   release_and_upload:
     needs: build
@@ -65,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: $${{ steps.create_release.outputs.upload_url }}
-          asset_path: ~/bottles
-          asset_name: homebrew_bottles
+          asset_path: ~/homebrew-bottles-{{ github.ref_name }}.zip
+          asset_name: homebrew-bottles-{{ github.ref_name }}.zip
           asset_content_type: application/zip
           

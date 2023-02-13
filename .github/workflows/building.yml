@@ -5,6 +5,7 @@ on:
 
 env:
   KURTOSIS_CLI_FORMULA: tedim52/tap/kurtosis-cli
+  SEMVER_REGEX: '(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?'
 
 jobs:
   release:
@@ -19,7 +20,7 @@ jobs:
         uses: AsasInnab/regex-action@v1
         id: get-version
         with:
-          regex_pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
+          regex_pattern: ${{ env.SEMVER_REGEX }}
           regex_flags: 'gim'
           search_string: ${{ github.event.head_commit.message }}
 

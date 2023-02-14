@@ -45,6 +45,8 @@ jobs:
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.get-version.outputs.match }}
           release_name: Release ${{ steps.get-version.outputs.match }}
@@ -58,9 +60,9 @@ jobs:
       matrix:
         include: 
           - os: ubuntu-latest
-          - os: macos-10.15
-          - os: macos-11
-          - os: macos-12
+          # - os: macos-10.15
+          # - os: macos-11
+          # - os: macos-12
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew

@@ -45,8 +45,6 @@ jobs:
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.get-version.outputs.match }}
           release_name: Release ${{ steps.get-version.outputs.match }}
@@ -76,8 +74,6 @@ jobs:
 
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: ./${{ env.BOTTLE_FILENAME }}

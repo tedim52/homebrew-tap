@@ -2,7 +2,9 @@ name: Build and Upload Homebrew Bottles
 
 on:
   push:
-
+    branches:
+      - master
+      
 env:
   KURTOSIS_CLI_FORMULA: tedim52/tap/kurtosis-cli
   SEMVER_REGEX: '(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?'
@@ -15,14 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
-      # - name: Attempt to get version from latest commit message
-      #   uses: AsasInnab/regex-action@v1
-      #   id: get-version
-      #   with:
-      #     regex_pattern: ${{ env.SEMVER_REGEX }}
-      #     regex_flags: 'gim'
-      #     search_string: ${{ github.event.head_commit.message }}
 
       - name: Attempt to get version from latest commit message
         uses: actions-ecosystem/action-regex-match@v2
@@ -31,17 +25,15 @@ jobs:
           regex: ${{ env.SEMVER_REGEX }}
           text: ${{ github.event.head_commit.message }}
 
-      # We assume that the commit messages that are pushed to tap repo by goreleaser contain the release version
-      # Thus, if this ever changes we need to fail loudly so we can adjust
+      # We assume that commit messages pushed to tap repo by goreleaser contain the release version.
+      # If this changes or an accidental commit is made, we fail loudly to not attempt building the bottles.
       - name: Check if version was parsed from commit message and fail loudly if not
         if: ${{ steps.get-version.outputs.match == '' }}
-        # This action allows using Github API directly, so we can use the core libraries fail function to fail loudly
-        # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
+        # This action allows using Github API directly, so we can use the core libraries fail function to fail loudly.
         uses: actions/github-script@v3
         with: 
           script: |
             core.setFailed('Unable to parse semantic version from latest tap commit message.')
-
       - name: Create a new release 
         id: create_release
         uses: actions/create-release@v1
@@ -55,15 +47,18 @@ jobs:
 
   build_and_upload:
     needs: release
+    
     strategy:
-      fail-fast: false
       matrix:
-        include: 
-          - os: ubuntu-latest
-          # - os: macos-10.15
-          # - os: macos-11
-          # - os: macos-12
+        os:
+          - ubuntu-latest
+          - macos-latest
+        arch:
+          - amd64
+          - arm64
     runs-on: ${{ matrix.os }}
+    env:
+      GOARCH: ${{ matrix.arch }}
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -72,12 +67,13 @@ jobs:
         run: |
           brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
-          echo "BOTTLE_FILENAME=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
-
+          echo "ASSET_PATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ./${{ env.BOTTLE_FILENAME }}
-          asset_name: ${{ env.BOTTLE_FILENAME }} 
+          asset_path: ${{ env.ASSET_PATH }}
+          asset_name: ${{ env.ASSET_PATH }}
           asset_content_type: application/gzip

@@ -5,7 +5,7 @@
 class KurtosisCli < Formula
   desc "CLI for managing Kurtosis environments."
   homepage "https://www.kurtosistech.com"
-  version "0.66.11"
+  version "0.67.11"
 
   on_macos do
     if Hardware::CPU.arm?

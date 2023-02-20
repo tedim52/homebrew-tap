@@ -73,6 +73,8 @@ jobs:
           brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           echo "ASSET_PATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
+          echo "ASSET_NAME=${ASSET_PATH:2}" >> $GITHUB_ENV
+
       - name: Upload bottle as release asset for latest release
         uses: actions/upload-release-asset@v1
         env: 
@@ -80,6 +82,5 @@ jobs:
         with: 
           upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: ${{ env.ASSET_PATH }}
-          # asset_name: ${{ env.ASSET_PATH }}
-          asset_name: kurtosis-cli--${{ matrix.arch}}_${{ matrix.os }}.bottle.1.tar.gz
+          asset_name: ${{ env.ASSET_NAME }}
           asset_content_type: application/gzip

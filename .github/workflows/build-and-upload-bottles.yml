@@ -60,17 +60,15 @@ jobs:
           - macos-latest
         arch:
           - amd64
-          # - arm64
+          - arm64
     runs-on: ${{ matrix.os }}
-    env:
-      GOARCH: ${{ matrix.arch }}
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Build bottle for specific os/arch
         run: |
-          brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
+          brew install --build-bottle --bottle-arch=${{ matrix.arch }} ${{ env.KURTOSIS_CLI_FORMULA }}
           brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           ASSET_PATH=$(find . -name "*.tar.gz" -type f)
           echo "ASSET_PATH=$ASSET_PATH" >> $GITHUB_ENV

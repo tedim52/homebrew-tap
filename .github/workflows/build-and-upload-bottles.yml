@@ -61,7 +61,7 @@ jobs:
           - macos-latest
         arch:
           - amd
-          - arm
+          - arm64_big_sur
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew

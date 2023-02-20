@@ -73,7 +73,7 @@ jobs:
           brew install --build-bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           brew bottle ${{ env.KURTOSIS_CLI_FORMULA }}
           ASSET_PATH=$(find . -name "*.tar.gz" -type f)
-          echo $ASSET_PATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
+          echo "ASSET_PATH=$(find . -name "*.tar.gz" -type f)" >> $GITHUB_ENV
           echo "ASSET_NAME=${ASSET_PATH:2}" >> $GITHUB_ENV
 
       - name: Upload bottle as release asset for latest release
